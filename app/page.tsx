@@ -16,24 +16,19 @@ export default function Page() {
         />
       </a>
       <h1 className="mb-8 text-2xl font-medium tracking-tight">
-      A monkey who wants to know
+        A monkey who wants to know
       </h1>
       <div className="prose prose-neutral dark:prose-invert">
         <p>
-        Hi, I'm Ibrahim V K—a software developer at <a href="https://instalane.co" target="_blank">Instalane</a>, where we build AI powered tools for clients.
+          I'm Ibrahim V K, a software developer at <a href="https://instalane.co" target="_blank">Instalane</a>, where we build AI‑powered solutions for clients. Alongside my work, I'm pursuing a <a href="https://study.iitm.ac.in/ds/" target="_blank">BS in Data Science & Applications</a> at IIT Madras.
         </p>
         <p>
-        At seekinmonky, I share my learnings and projects. Along with my work, i'm also pursuing a <a href="https://study.iitm.ac.in/ds/" target="_blank">BS in Data Science & Applications</a> at IIT Madras.
+          Think of us all as either curious "monkeys" or contemplative "monks," searching for our true purpose. Seekinmonky is where that exploration happens—through constant learning, building, and experimentation. Here, I share my insights, projects, and discoveries, with a focus on math, statistics, machine learning, and more.
         </p>
         <p>
-         I'm interested in learning math, statistics, and machine learning.
+          I truly believe AI will reshape our world in unimaginable ways. The best way to stay relevant is to be part of that transformation. So, explore my blog and projects—I hope you find something here that sparks your curiosity and helps you on your own journey of discovery.
         </p>
-        <p>
-          I believe AI will transform our world in a way we can't even imagine. So the only way to be relevant is to be part of this transformation.
-        </p>
-        <p>
-         I love you all.
-        </p>
+       
       </div>
     </section>
   );
