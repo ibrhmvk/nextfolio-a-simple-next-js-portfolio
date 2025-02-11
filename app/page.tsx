@@ -16,7 +16,7 @@ export default function Page() {
         />
       </a>
       <h1 className="mb-8 text-2xl font-medium tracking-tight">
-        I love to learn & build stuff
+      A monkey who wants to know
       </h1>
       <div className="prose prose-neutral dark:prose-invert">
         <p>
