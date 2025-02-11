@@ -15,7 +15,6 @@ export default function Page() {
           priority
         />
       </a>
-      
       <h1 className="mb-8 text-2xl font-medium tracking-tight">
         I love to learn & build stuff
       </h1>
