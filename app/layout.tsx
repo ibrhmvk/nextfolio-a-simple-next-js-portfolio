@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
   },
   icons: {
-    icon: "/logo2.webp",
+    icon: "/logo2.png",
   },
 };
 
