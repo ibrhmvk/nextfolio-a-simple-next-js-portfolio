@@ -10,7 +10,6 @@ export const metaData = {
 export const socialLinks = {
   twitter: "https://x.com/seekinmonky",
   github: "https://github.com/seekinmonky",
-  instagram: "https://www.instagram.com/",
-  linkedin: "https://www.linkedin.com/",
+  linkedin: "https://www.linkedin.com/in/ibrahimvk/",
   email: "mailto:seekinmonky@gmail.com",
 };
