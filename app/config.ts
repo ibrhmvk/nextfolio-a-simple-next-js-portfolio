@@ -2,6 +2,7 @@ export const metaData = {
   baseUrl: "https://seekinmonky.cc",
   title: "seekinmonky",
   name: "Ibrahim V K",
+  ogImage: "/logo2.png",
   description:
     "A monkey who wants to know",
 };

@@ -23,6 +23,7 @@ export const metadata: Metadata = {
     siteName: metaData.name,
     locale: "en_US",
     type: "website",
+    images: metaData.ogImage,
   },
   robots: {
     index: true,
