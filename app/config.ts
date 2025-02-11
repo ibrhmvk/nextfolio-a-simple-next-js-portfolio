@@ -2,9 +2,8 @@ export const metaData = {
   baseUrl: "https://seekinmonky.cc",
   title: "seekinmonky",
   name: "Ibrahim V K",
-  ogImage: "/opengraph-image.png",
   description:
-    "",
+    "Seekinmonky is where Ibrahim V K shares his journey through AI, data science, and an unending quest for understanding—join him in learning, exploring, and building.",
 };
 
 export const socialLinks = {
