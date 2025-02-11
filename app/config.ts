@@ -3,7 +3,7 @@ export const metaData = {
   title: "seekinmonky",
   name: "Ibrahim V K",
   description:
-    "Seekinmonky is where Ibrahim V K shares his journey through AI, data science, and an unending quest for understanding—join him in learning, exploring, and building.",
+    "A monkey who wants to know",
 };
 
 export const socialLinks = {
