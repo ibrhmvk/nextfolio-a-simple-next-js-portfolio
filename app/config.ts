@@ -4,7 +4,7 @@ export const metaData = {
   name: "Ibrahim V K",
   ogImage: "/logo2.webp",
   description:
-    "A monkey who wants to know",
+    "A monky who wants to know",
 };
 
 export const socialLinks = {
