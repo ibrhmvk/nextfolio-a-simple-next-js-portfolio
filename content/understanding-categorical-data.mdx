@@ -1,0 +1,150 @@
+---
+title: "Diving into Data: Understanding and Visualizing Categorical Data"
+publishedAt: "2025-02-12"
+summary: "A comprehensive guide to understanding, analyzing, and visualizing categorical data with practical examples."
+tags: "Data Science, Statistics, Visualization"
+---
+
+In the world of data science, the first step is understanding the data itself. This blog post will focus on **categorical data**—what it is, how to describe it, and how to visualize it effectively.
+
+## What is Categorical Data?
+
+Categorical data is information that can be divided into distinct groups or categories. These categories come in two forms:
+
+<Table
+  data={{
+    headers: ["Type", "Description", "Examples"],
+    rows: [
+      [
+        "Nominal Data",
+        "Categories without an inherent order",
+        "Colors, types of fruit",
+      ],
+      [
+        "Ordinal Data",
+        "Categories with a specific order",
+        "T-shirt sizes, satisfaction ratings",
+      ],
+    ],
+  }}
+/>
+
+## Describing Categorical Data: Frequency Distributions
+
+One of the simplest ways to describe categorical data is to create a **frequency distribution**. This involves:
+
+1. **Listing the distinct categories**
+2. **Tallying the occurrences of each category**
+3. **Counting the tallies to determine the frequency of each category**
+
+### Example: Frequency Distribution Table
+
+Consider a simple dataset consisting of the alphabets: A, B, C, and D. A frequency distribution for this data might look like:
+
+<Table
+  data={{
+    headers: ["Category", "Tally", "Frequency"],
+    rows: [
+      ["A", "IIII", "4"],
+      ["B", "II", "2"],
+      ["C", "II", "2"],
+      ["D", "II", "2"],
+    ],
+  }}
+/>
+
+## Relative Frequency
+
+Relative frequency is useful when comparing datasets with different total observations. It is calculated as the ratio of the frequency of a category to the total number of observations.
+
+<Callout emoji="📊">
+The formula for relative frequency is:
+</Callout>
+
+$
+\text{Relative Frequency} = \frac{\text{Frequency of Category}}{\text{Total Number of Observations}}
+$
+
+### Using the Previous Example
+
+$
+\text{Relative Frequency of A} = \frac{4}{10} = 0.4
+$
+
+<Table
+  data={{
+    headers: ["Category", "Frequency", "Relative Frequency"],
+    rows: [
+      ["A", "4", "0.4"],
+      ["B", "2", "0.2"],
+      ["C", "2", "0.2"],
+      ["D", "2", "0.2"],
+    ],
+  }}
+/>
+
+<Callout emoji="📝">
+  Note: The sum of all relative frequencies should equal 1
+</Callout>
+
+## Best Practices for Graphing Data
+
+To ensure your visualizations accurately represent your data, follow these best practices:
+
+<Table
+  data={{
+    headers: ["Practice", "Description"],
+    rows: [
+      [
+        "Define the Purpose",
+        "Determine what message you want your graph to convey",
+      ],
+      [
+        "Label Clearly",
+        "Always include descriptive titles and label your axes",
+      ],
+      [
+        "Handle Multiple Categories",
+        "Consider grouping smaller categories into an 'Other' category",
+      ],
+      [
+        "Respect the Area Principle",
+        "Ensure the area/length of chart elements corresponds to the data",
+      ],
+    ],
+  }}
+/>
+
+## Descriptive Measures: Mode and Median
+
+Besides visualizations, numerical measures can provide valuable insights into your categorical data.
+
+<Callout emoji="🎯">
+The **mode** is the category with the highest frequency, while the **median** is the middle observation in an ordered dataset (particularly useful for ordinal data).
+</Callout>
+
+### Types of Modal Data
+
+- **Unimodal:** One mode
+- **Bimodal:** Two modes
+- **Multimodal:** More than two modes
+
+#### Example: Finding the Median
+
+Consider the sorted grades of 15 students:
+
+```
+A, A, A, A, B, B, B, B, B, B, C, C, C, D, D
+```
+
+The median grade is the 8th observation, which is **B**.
+
+## Conclusion
+
+Understanding and visualizing categorical data is a fundamental skill in data science. By creating frequency distributions, calculating relative frequencies, and using visual tools like pie charts and bar charts, you can effectively summarize and communicate insights from your data.
+
+<Callout emoji="💡">
+Remember to follow best practices in labeling, scaling, and grouping data to ensure your visualizations are both accurate and ethical.
+</Callout>
+
+Happy data visualizing!
