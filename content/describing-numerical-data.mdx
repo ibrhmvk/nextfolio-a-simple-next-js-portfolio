@@ -1,0 +1,268 @@
+---
+title: "Describing Numerical Data"
+publishedAt: "2025-02-15"
+summary: "Explaining numerical data with examples and calculations."
+tags: "Statistics, Data Analysis, IITM BS Degree"
+---
+
+Understanding numerical data is crucial in statistics. This blog post covers key topics discussed in the **Week 3** lectures of the IITM BS Degree in Data Science and Applications.
+
+<Callout emoji="📚">
+In statistics, we broadly classify data into two types: **numerical** and **categorical**. This blog post focuses on numerical data and its analysis methods.
+</Callout>
+
+## Types of Numerical Data
+
+<Table
+  data={{
+    headers: ["Type", "Description", "Example"],
+    rows: [
+      ["Discrete", "Countable values with gaps", "Number of children"],
+      ["Continuous", "Any value within a range", "Height, Weight"],
+    ],
+  }}
+/>
+
+## Frequency Tables for Numerical Data
+
+Frequency tables help organize data by counting occurrences. Let's look at some examples:
+
+### Example: Household Sizes
+
+Consider survey data from 15 individuals:
+
+<Table
+  data={{
+    headers: ["Household Size", "Frequency", "Relative Frequency"],
+    rows: [
+      ["1", "2", "0.13"],
+      ["2", "3", "0.20"],
+      ["3", "5", "0.33"],
+      ["4", "4", "0.27"],
+      ["5", "1", "0.07"],
+    ],
+  }}
+/>
+
+### Guidelines for Organizing Data into Classes
+
+<Table
+  data={{
+    headers: ["Guideline", "Description"],
+    rows: [
+      ["Number of Classes", "Choose between 5-20 classes"],
+      ["Mutual Exclusivity", "Each observation belongs to one class only"],
+      ["Equal Length", "Use class intervals of equal length"],
+    ],
+  }}
+/>
+
+### Key Terms in Grouped Data
+
+<Callout emoji="📝">
+* **Lower Class Limit**: Smallest value within a class
+* **Upper Class Limit**: Largest value within a class
+* **Class Width**: Difference between upper and lower limits
+* **Class Mark**: Average of lower and upper limits
+</Callout>
+
+### Example: Student Marks
+
+<Table
+  data={{
+    headers: ["Class Interval", "Frequency", "Midpoint"],
+    rows: [
+      ["30-40", "3", "35"],
+      ["40-50", "6", "45"],
+      ["50-60", "18", "55"],
+      ["60-70", "17", "65"],
+      ["70-80", "4", "75"],
+      ["80-90", "2", "85"],
+    ],
+  }}
+/>
+
+## Graphical Summaries
+
+### Histogram
+
+A **histogram** represents frequency distributions visually. Here's an example of student test scores:
+
+```javascript
+<Histogram 
+  data={[3, 6, 18, 17, 4, 2]} 
+  bins={[30, 40, 50, 60, 70, 80, 90]} 
+/>
+```
+
+### Stem-and-Leaf Plot
+
+A **stem-and-leaf plot** organizes data by separating stems (leading digits) from leaves (trailing digits).
+
+<Callout emoji="🔢">
+Example data: 15, 22, 29, 36, 31, 23, 45, 10, 25, 28, 14
+
+```
+1 | 0, 4, 5
+2 | 2, 3, 5, 8, 9
+3 | 1, 6
+4 | 5
+```
+</Callout>
+
+## Measures of Central Tendency
+
+### Mean
+
+The arithmetic mean is calculated as:
+
+$
+\bar{x} = \frac{\sum_{i=1}^{n} x_i}{n}
+$
+
+**Example**:
+
+<Table
+  data={{
+    headers: ["Data", "Calculation", "Result"],
+    rows: [
+      ["[2, 12, 5, 7, 6, 7, 3]", "(2 + 12 + 5 + 7 + 6 + 7 + 3) ÷ 7", "6"],
+    ],
+  }}
+/>
+
+For **grouped data**, we use:
+
+$
+\bar{x} = \frac{\sum f_i m_i}{\sum f_i}
+$
+
+where $f_i$ is the frequency and $m_i$ is the midpoint of each class.
+
+### Median
+
+The median is the middle value in ordered data:
+
+<Callout emoji="📊">
+Ordered data: [2, 3, 5, 6, 7, 7, 12]
+Median = 6 (4th value)
+</Callout>
+
+### Mode
+
+The mode is the most frequent value:
+
+<Callout emoji="🔢">
+In [2, 12, 5, 7, 6, 7, 3], the mode is 7 (appears twice)
+</Callout>
+
+## Measures of Dispersion
+
+### Range
+
+$
+\text{Range} = \text{Maximum} - \text{Minimum}
+$
+
+### Variance & Standard Deviation
+
+The sample variance is calculated as:
+
+$
+s^2 = \frac{\sum_{i=1}^{n} (x_i - \bar{x})^2}{n-1}
+$
+
+The standard deviation is:
+
+$
+s = \sqrt{s^2}
+$
+
+### Interquartile Range (IQR)
+
+$
+\text{IQR} = Q_3 - Q_1
+$
+
+## Advanced Statistical Concepts
+
+### Properties of Mean
+
+<Callout emoji="🔢">
+**Impact of Adding a Constant (a)**:
+* New Mean = Old Mean + a
+
+**Impact of Multiplication by Constant (k)**:
+* New Mean = k × Old Mean
+</Callout>
+
+### Example of Mean Properties
+
+<Table
+  data={{
+    headers: ["Original Data", "Add 5", "Multiply by 0.4"],
+    rows: [
+      ["68, 79, 38", "73, 84, 43", "27.2, 31.6, 15.2"],
+      ["Mean: 59", "Mean: 64", "Mean: 23.6"],
+    ],
+  }}
+/>
+
+### Properties of Median and Mode
+
+<Table
+  data={{
+    headers: ["Measure", "Adding Constant (a)", "Multiplying by Constant (k)"],
+    rows: [
+      ["Median", "New Median = Old Median + a", "New Median = k × Old Median"],
+      ["Mode", "New Mode = Old Mode + a", "New Mode = k × Old Mode"],
+    ],
+  }}
+/>
+
+## Statistical Formulas
+
+### Population Parameters
+
+$
+\text{Population Mean (µ)} = \frac{\sum_{i=1}^{N} x_i}{N}
+$
+
+$
+\text{Population Variance (σ²)} = \frac{\sum_{i=1}^{N} (x_i - µ)^2}{N}
+$
+
+### Sample Statistics
+
+$
+\text{Sample Mean (}\bar{x}\text{)} = \frac{\sum_{i=1}^{n} x_i}{n}
+$
+
+$
+\text{Sample Variance (s²)} = \frac{\sum_{i=1}^{n} (x_i - \bar{x})^2}{n-1}
+$
+
+## Five-Number Summary
+
+<Table
+  data={{
+    headers: ["Statistic", "Description"],
+    rows: [
+      ["Minimum", "Smallest value in dataset"],
+      ["Q1", "25th percentile"],
+      ["Median (Q2)", "50th percentile"],
+      ["Q3", "75th percentile"],
+      ["Maximum", "Largest value in dataset"],
+    ],
+  }}
+/>
+
+### Calculating Percentiles
+
+<Callout emoji="📊">
+1. Arrange data in ascending order
+2. Calculate rank = Percentile × (n - 1) + 1
+3. Split rank into integer and fractional parts
+4. Find value using interpolation if necessary
+</Callout>
+
