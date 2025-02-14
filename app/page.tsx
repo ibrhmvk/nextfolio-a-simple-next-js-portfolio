@@ -3,6 +3,7 @@ import { socialLinks } from "./config";
 
 export default function Page() {
   return (
+    
     <section>
       <a href={socialLinks.twitter} target="_blank">
         <Image
