@@ -44,7 +44,7 @@ export default function Photos() {
       <ImageGrid
         columns={2}
         images={[
-          { src: "/11.webp", alt: "ibrahim" },
+          { src: "/17.webp", alt: "ibrahim" },
           { src: "/2.webp", alt: "ibrahim" },
           { src: "/14.webp", alt: "ibrahim" },
           { src: "/10.webp", alt: "ibrahim" },
@@ -54,7 +54,7 @@ export default function Photos() {
       <ImageGrid
         columns={4}
         images={[
-          { src: "/17.webp", alt: "ibrahim" },
+          { src: "/7.webp", alt: "ibrahim" },
           { src: "/15.webp", alt: "ibrahim" },
           { src: "/6.webp", alt: "ibrahim" },
           { src: "/12.webp", alt: "ibrahim" },
