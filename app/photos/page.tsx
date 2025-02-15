@@ -19,7 +19,7 @@ export default function Photos() {
             alt: "ibrahim",
           },
           {
-            src: "/12.webp",
+            src: "/9.webp",
             alt: "ibrahim",
           },
           {
@@ -57,7 +57,7 @@ export default function Photos() {
           { src: "/7.webp", alt: "ibrahim" },
           { src: "/15.webp", alt: "ibrahim" },
           { src: "/6.webp", alt: "ibrahim" },
-          { src: "/9.webp", alt: "ibrahim" },
+          { src: "/12.webp", alt: "ibrahim" },
           { src: "/8.webp", alt: "ibrahim" },
           { src: "/11.webp", alt: "ibrahim" },
         ]}
