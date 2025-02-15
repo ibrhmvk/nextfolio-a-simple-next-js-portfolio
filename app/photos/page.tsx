@@ -15,7 +15,7 @@ export default function Photos() {
         columns={3}
         images={[
           {
-            src: "/1.webp",
+            src: "/13.webp",
             alt: "ibrahim",
           },
           {
@@ -35,7 +35,7 @@ export default function Photos() {
             alt: "ibrahim",
           },
           {
-            src: "/13.webp",
+            src: "/1.webp",
             alt: "ibrahim",
           },
         ]}
