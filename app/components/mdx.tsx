@@ -10,6 +10,7 @@ import { ImageGrid } from "./image-grid";
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 import "katex/dist/katex.min.css";
+import Histogram from './histogram';
 
 function CustomLink(props) {
   let href = props.href;
@@ -117,6 +118,7 @@ let components = {
   Table,
   del: Strikethrough,
   Callout,
+  Histogram,
 };
 
 export function CustomMDX(props) {
