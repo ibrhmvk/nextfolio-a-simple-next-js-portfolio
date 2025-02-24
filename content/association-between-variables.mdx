@@ -1,0 +1,154 @@
+---
+title: "Statistics 101: Associations Between Variables"
+publishedAt: "2025-02-24"
+summary: "A deep dive into associations between variables, including categorical and numerical relationships, from Week 4 of the Statistics-1 course in IIT Madras' BS in Data Science program."
+tags: "Statistics, Data Science, Education, IIT Madras"
+---
+
+Understanding how variables relate to each other is crucial in data science. This guide explains different types of associations, how to measure them, and how to visualize them, based on **Week 4 of the Statistics-1 course** from IIT Madras' BS in Data Science program.
+
+## 1. Review of Basic Statistical Concepts
+
+Before exploring associations, let's recap some fundamental statistical concepts:
+
+### Descriptive vs. Inferential Statistics
+
+- **Descriptive Statistics**: Summarizes and presents data.
+- **Inferential Statistics**: Uses samples to make inferences about a population.
+
+### Variables and Data Types
+
+- **Variables and Cases**: Columns in a dataset represent variables, rows represent cases.
+- **Data Classification**:
+  - **Categorical Data**: Divided into groups (e.g., gender, city).
+  - **Numerical Data**: Quantitative values.
+    - **Discrete**: Countable values (e.g., number of students).
+    - **Continuous**: Measurable values (e.g., height, weight).
+- **Scales of Measurement**:
+  - **Nominal**: Categories with no order (e.g., colors).
+  - **Ordinal**: Ordered categories (e.g., education level).
+  - **Interval**: Numeric with equal intervals, no true zero (e.g., temperature in Celsius).
+  - **Ratio**: Numeric with equal intervals and a true zero (e.g., weight).
+
+### Describing Data
+
+- **Categorical Data**: Frequency tables, bar charts, pie charts.
+- **Numerical Data**:
+  - **Central Tendency**: Mean, median, mode.
+  - **Dispersion**: Range, variance, standard deviation.
+  - **Graphical Summaries**: Histograms, stem-and-leaf plots.
+
+## 2. Association Between Two Categorical Variables
+
+### Contingency Tables
+
+A **contingency table** helps analyze relationships between two categorical variables.
+
+#### Example:
+- **Variables**: Gender (Male, Female) and Smartphone Ownership (Yes, No).
+- **Data Collection**: 100 students surveyed.
+
+#### Constructing a Contingency Table in Google Sheets:
+1. Select data (e.g., Gender & Smartphone Ownership columns).
+2. Insert a pivot table.
+3. Add **Gender** under Rows and **Smartphone Ownership** under Columns.
+4. Summarize by count.
+
+### Relative Frequencies
+
+- **Row Relative Frequency** = Cell count / Row total.
+- **Column Relative Frequency** = Cell count / Column total.
+
+### Identifying Associations
+
+- **If frequencies remain constant**, no association exists.
+- **If frequencies vary**, the variables are associated.
+
+### Visualizing with Stacked Bar Charts
+
+- **Stacked Bar Charts**: Show proportions of one categorical variable within another.
+- **100% Stacked Bar Charts**: Show part-to-whole relationships.
+
+## 3. Association Between Two Numerical Variables
+
+### Scatter Plots
+
+Scatter plots visualize relationships between two numerical variables.
+
+#### Example:
+- **Age (x-axis)** vs. **Height (y-axis)**
+
+#### Constructing Scatter Plots in Google Sheets:
+1. Select numerical columns.
+2. Insert a scatter chart.
+3. Ensure the explanatory variable is on the x-axis.
+
+### Describing Associations
+
+- **Direction**:
+  - Positive: As *x* increases, *y* increases.
+  - Negative: As *x* increases, *y* decreases.
+- **Form**: Linear or curvilinear.
+- **Strength**: Strong (tight clustering) or weak (spread out).
+- **Outliers**: Deviate from the overall trend.
+
+### Covariance
+
+Measures how two variables move together.
+
+#### Formula:
+$$ s_{xy} = \frac{\sum{(x_i - \bar{x})(y_i - \bar{y})}}{n-1} $$
+
+- **Positive covariance**: Both variables move in the same direction.
+- **Negative covariance**: Variables move in opposite directions.
+- **Google Sheets**:
+  - `COVARIANCE.P`: Population covariance.
+  - `COVARIANCE.S`: Sample covariance.
+
+### Correlation
+
+A unit-less measure of association strength.
+
+#### Formula:
+$$ r = \frac{cov(x, y)}{s_x s_y} $$
+
+- **r ≈ +1**: Strong positive association.
+- **r ≈ -1**: Strong negative association.
+- **r ≈ 0**: Weak or no association.
+- **Google Sheets**: `CORREL(x, y)`.
+
+### Fitting a Line
+
+If the relationship is linear, fit a line using:
+$$ y = mx + c $$
+
+- **Google Sheets**:
+  1. Create a scatter plot.
+  2. Add a trendline.
+  3. Display the equation and R² value.
+- **R-squared (R²)**:
+  - Closer to 1: Strong fit.
+  - Closer to 0: Weak fit.
+
+## 4. Association Between Categorical and Numerical Variables
+
+### Example:
+A teacher investigates whether **gender** affects **exam scores**.
+
+### Approach:
+1. **Code Categorical Variable**: Assign numerical values (Male = 0, Female = 1).
+2. **Scatter Plot**: Plot coded gender vs. scores.
+3. **Point Bi-Serial Correlation Coefficient**:
+   - Measures association between a numerical variable and a binary categorical variable.
+   - Formula:
+     $$ r_{pb} = \frac{\bar{y_1} - \bar{y_0}}{s_x} \sqrt{p_0 p_1} $$
+
+### Interpretation
+
+- **|r| close to 1**: Strong association.
+- **|r| close to 0**: Weak association.
+- **Sign of r** depends on category coding.
+
+---
+
+By applying these statistical techniques, you can uncover meaningful relationships in your data and make informed decisions. These concepts are foundational in data science and statistics, forming a key part of **Week 4 of IIT Madras' BS in Data Science program**.
