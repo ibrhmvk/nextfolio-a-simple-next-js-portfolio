@@ -54,6 +54,8 @@ export default function Histogram({ data, bins }: HistogramProps) {
         .attr('y', height)
         .attr('height', 0)
         .attr('fill', '#3b82f6')
+        .attr('stroke', 'currentColor')
+        .attr('stroke-width', '1')
         .attr('rx', 2)
         .attr('ry', 2)
         .transition()
