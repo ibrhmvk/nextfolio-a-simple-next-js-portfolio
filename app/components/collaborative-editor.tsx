@@ -10,7 +10,7 @@ import dynamic from 'next/dynamic';
 const CodeHighlight = dynamic(() => import('./code-highlight'), { 
   ssr: false,
   loading: () => (
-    <div className="w-full h-[70vh] p-4 font-mono text-sm bg-neutral-800 text-neutral-300">
+    <div className="w-full h-[50vh] sm:h-[70vh] p-2 sm:p-4 font-mono text-xs sm:text-sm bg-neutral-800 text-neutral-300 rounded-md">
       Loading editor...
     </div>
   )
@@ -52,9 +52,6 @@ const languageTemplates = {
 const supportedLanguages = [
   { id: 'javascript', name: 'JavaScript' },
   { id: 'python', name: 'Python' },
-  { id: 'plaintext', name: 'Plain Text' },
-  { id: 'html', name: 'HTML' },
-  { id: 'css', name: 'CSS' },
 ];
 
 export default function CollaborativeEditor({
@@ -99,12 +96,16 @@ export default function CollaborativeEditor({
         if (error) {
           console.log('Creating new document:', sessionId);
           // Document doesn't exist, create it
+          // Use the appropriate template based on initialLanguage
+          const templateCode = languageTemplates[initialLanguage as keyof typeof languageTemplates] || initialCode;
+          
           await supabase
             .from('collaborative_documents')
             .insert([
-              { session_id: sessionId, content: initialCode, language: initialLanguage }
+              { session_id: sessionId, content: templateCode, language: initialLanguage }
             ]);
-          lastSavedCodeRef.current = initialCode;
+          setCode(templateCode);
+          lastSavedCodeRef.current = templateCode;
         } else if (data) {
           console.log('Document found:', sessionId);
           // Document exists, use its content and language
@@ -442,7 +443,7 @@ export default function CollaborativeEditor({
   // Create a new session
   const handleNewSession = () => {
     const newSessionId = Math.random().toString(36).substring(2, 10);
-    router.push(`/playground/${newSessionId}`);
+    router.push(`/playground/${newSessionId}?language=javascript`);
   };
   
   if (isLoading) {
@@ -454,72 +455,110 @@ export default function CollaborativeEditor({
   }
   
   return (
-    <div className="border border-neutral-200 dark:border-neutral-800 rounded-lg overflow-hidden shadow-sm">
-      <div className="bg-neutral-100 dark:bg-neutral-900 p-3 flex justify-between items-center border-b border-neutral-200 dark:border-neutral-800">
-        <div className="text-sm font-mono flex items-center">
-          <div className="flex items-center mr-4">
-            <FiCode className="mr-2 text-neutral-500 dark:text-neutral-400" />
+    <div className="flex flex-col w-full">
+      <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 items-start sm:items-center justify-between mb-2 sm:mb-4">
+        <div className="flex items-center gap-2 text-xs sm:text-sm">
+          <div className="flex items-center">
+            <label htmlFor="language-select" className="mr-2 text-xs sm:text-sm whitespace-nowrap">Language:</label>
             <select
+              id="language-select"
               value={language}
               onChange={handleLanguageChange}
-              className="bg-transparent border border-neutral-300 dark:border-neutral-700 rounded px-2 py-1 text-sm"
+              className="px-2 py-1 sm:px-3 sm:py-1.5 text-xs sm:text-sm border border-neutral-300 dark:border-neutral-700 rounded-lg bg-white dark:bg-neutral-800 focus:outline-none focus:ring-1 focus:ring-blue-500"
               disabled={isChangingLanguage}
             >
-              {supportedLanguages.map(lang => (
+              {supportedLanguages.map((lang) => (
                 <option key={lang.id} value={lang.id}>
                   {lang.name}
                 </option>
               ))}
             </select>
           </div>
-          <div className="flex items-center text-neutral-500 dark:text-neutral-400">
-            <FiUsers className="mr-1" />
-            <span>{activeUsers.length} active</span>
-            {isSaving && <span className="ml-3 text-xs">Saving...</span>}
-            {isResetting && <span className="ml-3 text-xs">Resetting...</span>}
-            {isChangingLanguage && <span className="ml-3 text-xs">Changing language...</span>}
-          </div>
         </div>
-        <div className="flex space-x-2">
-          <button
-            onClick={handleResetCode}
-            className="p-2 text-sm rounded hover:bg-neutral-200 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors"
-            title="Reset code"
-            disabled={isResetting}
-          >
-            <FiRefreshCw className={isResetting ? "animate-spin" : ""} />
-          </button>
+        
+        <div className="flex flex-wrap gap-2 sm:gap-3 text-xs sm:text-sm">
           <button
             onClick={handleCopy}
-            className="p-2 text-sm rounded hover:bg-neutral-200 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors"
-            title="Copy code"
+            className="inline-flex items-center px-2 py-1 sm:px-3 sm:py-1.5 bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 rounded-md transition-colors"
+            disabled={isCopied}
           >
-            {isCopied ? 'Copied!' : <FiCopy />}
+            <FiCopy className="mr-1" />
+            {isCopied ? 'Copied!' : 'Copy'}
+          </button>
+          
+          <button
+            onClick={handleResetCode}
+            className="inline-flex items-center px-2 py-1 sm:px-3 sm:py-1.5 bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 rounded-md transition-colors"
+            disabled={isResetting}
+          >
+            <FiRefreshCw className={`mr-1 ${isResetting ? 'animate-spin' : ''}`} />
+            Reset
+          </button>
+          
+          <button
+            onClick={handleNewSession}
+            className="inline-flex items-center px-2 py-1 sm:px-3 sm:py-1.5 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-800/40 text-blue-700 dark:text-blue-300 rounded-md transition-colors"
+          >
+            <FiCode className="mr-1" />
+            New Session
           </button>
         </div>
       </div>
-
-      <div className="relative h-[70vh]">
-        {/* Code editor with syntax highlighting */}
-        <CodeHighlight
-          code={code}
-          language={language}
-          textareaRef={textareaRef as React.RefObject<HTMLTextAreaElement>}
-          onChange={handleCodeChange}
-          onSelect={handleCursorPositionChange}
-          onKeyUp={handleCursorPositionChange}
-          onMouseUp={handleCursorPositionChange}
-        />
+      
+      <div className="flex items-center justify-between mb-2 text-xs sm:text-sm">
+        <div className="flex items-center">
+          <div className="flex items-center">
+            <FiUsers className="text-neutral-500 mr-1" />
+            <span className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+              {activeUsers.length} active {activeUsers.length === 1 ? 'user' : 'users'}
+            </span>
+          </div>
+        </div>
+        
+        <div className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+          {isSaving ? 'Saving...' : 'All changes saved'}
+        </div>
       </div>
       
-      <div className="bg-neutral-100 dark:bg-neutral-900 p-3 text-xs text-neutral-500 dark:text-neutral-400 flex justify-between items-center border-t border-neutral-200 dark:border-neutral-800">
-        <p>Session ID: {sessionId} • Share this URL with others to code together</p>
-        <button
-          onClick={handleNewSession}
-          className="text-xs text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
-        >
-          Create New Session
-        </button>
+      <div className="relative border border-neutral-300 dark:border-neutral-700 rounded-md overflow-hidden">
+        <textarea
+          ref={textareaRef}
+          value={code}
+          onChange={handleCodeChange}
+          onKeyDown={(e) => {
+            if (e.key === 'Tab') {
+              e.preventDefault();
+              const start = e.currentTarget.selectionStart;
+              const end = e.currentTarget.selectionEnd;
+              const newValue = code.substring(0, start) + '  ' + code.substring(end);
+              setCode(newValue);
+              
+              // Set cursor position after the inserted tab
+              setTimeout(() => {
+                if (textareaRef.current) {
+                  textareaRef.current.selectionStart = textareaRef.current.selectionEnd = start + 2;
+                }
+              }, 0);
+            }
+          }}
+          className="absolute opacity-0 top-0 left-0 h-full w-full resize-none outline-none"
+          placeholder="Start coding here..."
+          spellCheck={false}
+          autoComplete="off"
+          autoCorrect="off"
+          autoCapitalize="off"
+        />
+        <div className="w-full h-[50vh] sm:h-[70vh] overflow-hidden">
+          <CodeHighlight 
+            code={code} 
+            language={language}
+            textareaRef={textareaRef as React.RefObject<HTMLTextAreaElement>}
+            onChange={handleCodeChange}
+            onKeyUp={handleCursorPositionChange}
+            onMouseUp={handleCursorPositionChange}
+            onSelect={handleCursorPositionChange}
+          />
+        </div>
       </div>
     </div>
   );

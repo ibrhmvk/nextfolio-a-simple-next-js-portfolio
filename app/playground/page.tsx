@@ -1,38 +1,16 @@
 'use client';
 
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { FiCode, FiUsers, FiShare2 } from 'react-icons/fi';
+import { FiCode, FiShare2 } from 'react-icons/fi';
 
 export default function PlaygroundPage() {
   const router = useRouter();
-  const [sessionId, setSessionId] = useState('');
   
-  // Generate a random session ID for a new session
   const createNewSession = () => {
     const newSessionId = Math.random().toString(36).substring(2, 10);
     router.push(`/playground/${newSessionId}`);
   };
   
-  // Join an existing session
-  const joinSession = () => {
-    if (sessionId.trim()) {
-      router.push(`/playground/${sessionId}`);
-    }
-  };
-
-  // Handle input change
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSessionId(e.target.value);
-  };
-
-  // Handle enter key press
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      joinSession();
-    }
-  };
 
   return (
     <section className="max-w-4xl mx-auto py-12">
@@ -64,7 +42,7 @@ export default function PlaygroundPage() {
           </div>
         </div>
 
-        <div className="border border-neutral-200 dark:border-neutral-800 rounded-lg p-6">
+        {/* <div className="border border-neutral-200 dark:border-neutral-800 rounded-lg p-6">
           <div className="flex items-start mb-4">
             <div className="bg-purple-100 dark:bg-purple-900/30 p-3 rounded-lg mr-4">
               <FiUsers className="text-purple-600 dark:text-purple-400 text-xl" />
@@ -92,7 +70,7 @@ export default function PlaygroundPage() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="border border-neutral-200 dark:border-neutral-800 rounded-lg p-6">
           <div className="flex items-start">
