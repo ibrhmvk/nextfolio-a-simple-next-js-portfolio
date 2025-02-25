@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, ReactNode } from "react";
 import { incrementViewCount, getViewCount } from "../lib/supabase";
 import { IoEyeOutline, IoLeaf, IoMoon, IoSunny } from "react-icons/io5";
 
@@ -8,6 +8,29 @@ export default function ViewCounter() {
   const [viewCount, setViewCount] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [currentIcon, setCurrentIcon] = useState<ReactNode>(null);
+
+  useEffect(() => {
+    // Determine which icon to show based on time of day
+    const updateTimeBasedIcon = () => {
+      const currentHour = new Date().getHours();
+      // Morning to evening (6 AM to 6 PM) - Sun icon
+      // Night (6 PM to 6 AM) - Moon icon
+      if (currentHour >= 6 && currentHour < 18) {
+        setCurrentIcon(<IoSunny className="text-white mr-3" />);
+      } else {
+        setCurrentIcon(<IoMoon className="text-white mr-3" />);
+      }
+    };
+
+    // Set icon initially
+    updateTimeBasedIcon();
+
+    // Update icon every hour
+    const intervalId = setInterval(updateTimeBasedIcon, 3600000); // 1 hour in milliseconds
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   useEffect(() => {
     const updateViewCount = async () => {
@@ -54,8 +77,8 @@ export default function ViewCounter() {
   }
 
   return (
-    <div className="color-changing-pill flex items-center justify-center w-full max-w-[140px] px-4 py-2 rounded-full text-sm">
-      <IoSunny className="text-white mr-3" />
+    <div className="color-changing-pill flex items-center justify-center w-full max-w-[140px] px-3 py-1.5 rounded-full text-sm">
+      {currentIcon}
       <span className="font-medium text-white">
         {viewCount?.toLocaleString()} views
       </span>
