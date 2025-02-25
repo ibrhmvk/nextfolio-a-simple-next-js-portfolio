@@ -86,21 +86,21 @@ export default function ViewCounter() {
         .color-changing-pill {
           background: linear-gradient(
             270deg,
-            #1e2533,
-            #2a3a5a,
-            #364b7a,
-            #4a5d8f,
-            #5e6fa4,
-            #7281b9,
-            #8693ce,
-            #9aa5e3,
-            #8693ce,
-            #7281b9,
-            #5e6fa4,
-            #4a5d8f,
-            #364b7a,
-            #2a3a5a,
-            #1e2533
+            #0a0a0a,
+            #1a1a1a,
+            #2a2a2a,
+            #3a3a3a,
+            #4a4a4a,
+            #5a5a5a,
+            #6a6a6a,
+            #7a7a7a,
+            #6a6a6a,
+            #5a5a5a,
+            #4a4a4a,
+            #3a3a3a,
+            #2a2a2a,
+            #1a1a1a,
+            #0a0a0a
           );
           background-size: 300% 300%;
           animation: gradient 15s ease infinite;
