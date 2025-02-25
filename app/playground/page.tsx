@@ -22,9 +22,9 @@ export default function PlaygroundPage() {
       <div className="grid gap-8 mb-12">
         <div className="border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-black rounded-lg p-6">
           <div className="flex items-start gap-5">
-            <div className="bg-neutral-100 dark:bg-neutral-800 p-3 rounded-lg">
+            {/* <div className="bg-neutral-100 dark:bg-neutral-800 p-3 rounded-lg">
               <FiCode className="text-neutral-500 dark:text-neutral-400 text-xl" />
-            </div>
+            </div> */}
             <div className="flex-1">
               <h2 className="font-semibold text-xl mb-2">Start a New Coding Session</h2>
               <p className="text-neutral-600 dark:text-neutral-400 mb-6">
@@ -44,9 +44,9 @@ export default function PlaygroundPage() {
 
         <div className="border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-black rounded-lg p-6">
           <div className="flex items-start gap-5">
-            <div className="bg-neutral-100 dark:bg-neutral-800 p-3 rounded-lg">
+            {/* <div className="bg-neutral-100 dark:bg-neutral-800 p-3 rounded-lg">
               <FiShare2 className="text-neutral-500 dark:text-neutral-400 text-xl" />
-            </div>
+            </div> */}
             <div className="flex-1">
               <h2 className="font-semibold text-xl mb-4">How It Works</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
