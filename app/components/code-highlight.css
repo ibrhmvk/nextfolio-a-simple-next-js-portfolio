@@ -1,0 +1,289 @@
+/* Editor wrapper styles */
+.editor-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Code editor container */
+.code-editor-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  transition: background-color 0.3s ease;
+  background-color: var(--bg-color);
+}
+
+.code-display {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  margin: 0;
+  overflow: auto;
+  white-space: pre;
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  tab-size: 2;
+  -moz-tab-size: 2;
+  transition: color 0.3s ease;
+  color: var(--text-color);
+}
+
+.code-editor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  margin: 0;
+  overflow: auto;
+  white-space: pre;
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  tab-size: 2;
+  -moz-tab-size: 2;
+  background: transparent;
+  color: transparent;
+  caret-color: var(--text-color);
+  resize: none;
+  border: none;
+  outline: none;
+}
+
+/* Define a consistent monospace font stack */
+.monospace-font {
+  font-family: 'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  letter-spacing: 0;
+  font-feature-settings: "liga" 0; /* Disable ligatures */
+  font-variant-ligatures: none;
+}
+
+/* Code element styling */
+.editor-code {
+  font-family: 'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  letter-spacing: 0;
+  font-feature-settings: "liga" 0;
+  font-variant-ligatures: none;
+  white-space: pre;
+}
+
+/* Textarea for input */
+.editor-textarea {
+  margin: 0;
+  padding: 1rem;
+  white-space: pre;
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  resize: none;
+  overflow: auto;
+  outline: none;
+  z-index: 1; 
+  border: none;
+  tab-size: 2;
+  -moz-tab-size: 2;
+  text-rendering: optimizeLegibility;
+  font-family: 'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  letter-spacing: 0;
+  font-feature-settings: "liga" 0;
+  font-variant-ligatures: none;
+  transition: caret-color 0.3s ease;
+}
+
+/* Highlight.js theme customization */
+/* Dark mode */
+:root.dark .hljs {
+  background: transparent !important;
+  color: #f8f8f2 !important;
+  font-family: 'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  padding: 0 !important;
+}
+
+/* Light mode */
+:root:not(.dark) .hljs {
+  background: transparent !important;
+  color: #383a42 !important;
+  font-family: 'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  padding: 0 !important;
+}
+
+/* Override highlight.js styles to match our editor */
+pre.hljs {
+  padding: 1rem !important;
+  margin: 0 !important;
+  overflow: auto !important;
+}
+
+/* These styles ensure proper cursor alignment by forcing the same font rendering */
+.hljs, .hljs *, .editor-textarea {
+  font-feature-settings: "liga" 0 !important;
+  font-variant-ligatures: none !important;
+  letter-spacing: 0 !important;
+}
+
+/* Dark mode token styles */
+:root.dark .hljs-keyword,
+:root.dark .hljs-selector-tag,
+:root.dark .hljs-built_in,
+:root.dark .hljs-name,
+:root.dark .hljs-tag {
+  color: #66d9ef !important;
+}
+
+:root.dark .hljs-string,
+:root.dark .hljs-title,
+:root.dark .hljs-section,
+:root.dark .hljs-attribute,
+:root.dark .hljs-literal,
+:root.dark .hljs-template-tag,
+:root.dark .hljs-template-variable,
+:root.dark .hljs-type,
+:root.dark .hljs-addition {
+  color: #a6e22e !important;
+}
+
+:root.dark .hljs-comment,
+:root.dark .hljs-quote,
+:root.dark .hljs-deletion,
+:root.dark .hljs-meta {
+  color: #75715e !important;
+}
+
+:root.dark .hljs-number,
+:root.dark .hljs-boolean {
+  color: #ae81ff !important;
+}
+
+/* Light mode token styles */
+:root:not(.dark) .hljs-keyword,
+:root:not(.dark) .hljs-selector-tag,
+:root:not(.dark) .hljs-built_in,
+:root:not(.dark) .hljs-name,
+:root:not(.dark) .hljs-tag {
+  color: #0184bc !important;
+}
+
+:root:not(.dark) .hljs-string,
+:root:not(.dark) .hljs-title,
+:root:not(.dark) .hljs-section,
+:root:not(.dark) .hljs-attribute,
+:root:not(.dark) .hljs-literal,
+:root:not(.dark) .hljs-template-tag,
+:root:not(.dark) .hljs-template-variable,
+:root:not(.dark) .hljs-type,
+:root:not(.dark) .hljs-addition {
+  color: #50a14f !important;
+}
+
+:root:not(.dark) .hljs-comment,
+:root:not(.dark) .hljs-quote,
+:root:not(.dark) .hljs-deletion,
+:root:not(.dark) .hljs-meta {
+  color: #a0a1a7 !important;
+}
+
+:root:not(.dark) .hljs-number,
+:root:not(.dark) .hljs-boolean {
+  color: #986801 !important;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+/* highlight.js specific token styles - colors will be set in the component */
+.hljs-keyword,
+.hljs-built_in,
+.hljs-selector-tag,
+.hljs-tag {
+  color: var(--keyword-color);
+  font-weight: bold;
+}
+
+.hljs-string,
+.hljs-title,
+.hljs-section,
+.hljs-attribute,
+.hljs-literal,
+.hljs-template-tag,
+.hljs-template-variable,
+.hljs-attr {
+  color: var(--string-color);
+}
+
+.hljs-comment,
+.hljs-quote,
+.hljs-meta {
+  color: var(--comment-color);
+  font-style: italic;
+}
+
+.hljs-function,
+.hljs-title.function_ {
+  color: var(--function-color);
+}
+
+.hljs-number,
+.hljs-symbol {
+  color: var(--number-color);
+}
+
+.hljs-operator,
+.hljs-punctuation {
+  color: var(--operator-color);
+}
+
+.hljs-variable,
+.hljs-params,
+.hljs-selector-class,
+.hljs-selector-id {
+  color: var(--variable-color);
+}
+
+/* Scrollbar styling */
+.code-editor::-webkit-scrollbar,
+.code-display::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.code-editor::-webkit-scrollbar-track,
+.code-display::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.code-editor::-webkit-scrollbar-thumb,
+.code-display::-webkit-scrollbar-thumb {
+  background: rgba(100, 100, 100, 0.3);
+  border-radius: 4px;
+}
+
+.code-editor::-webkit-scrollbar-thumb:hover,
+.code-display::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 100, 100, 0.5);
+} 

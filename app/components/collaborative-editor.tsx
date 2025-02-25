@@ -4,6 +4,17 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { FiCopy, FiRefreshCw, FiUsers, FiCode } from 'react-icons/fi';
 import { useRouter } from 'next/navigation';
+import dynamic from 'next/dynamic';
+
+// Import CodeHighlight component with dynamic import to avoid SSR issues with Prism
+const CodeHighlight = dynamic(() => import('./code-highlight'), { 
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-[70vh] p-4 font-mono text-sm bg-neutral-800 text-neutral-300">
+      Loading editor...
+    </div>
+  )
+});
 
 // Initialize Supabase client
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
@@ -42,6 +53,8 @@ const supportedLanguages = [
   { id: 'javascript', name: 'JavaScript' },
   { id: 'python', name: 'Python' },
   { id: 'plaintext', name: 'Plain Text' },
+  { id: 'html', name: 'HTML' },
+  { id: 'css', name: 'CSS' },
 ];
 
 export default function CollaborativeEditor({
@@ -441,8 +454,8 @@ export default function CollaborativeEditor({
   }
   
   return (
-    <div className="border border-neutral-200 dark:border-neutral-800 rounded-lg overflow-hidden">
-      <div className="bg-neutral-100 dark:bg-neutral-900 p-3 flex justify-between items-center">
+    <div className="border border-neutral-200 dark:border-neutral-800 rounded-lg overflow-hidden shadow-sm">
+      <div className="bg-neutral-100 dark:bg-neutral-900 p-3 flex justify-between items-center border-b border-neutral-200 dark:border-neutral-800">
         <div className="text-sm font-mono flex items-center">
           <div className="flex items-center mr-4">
             <FiCode className="mr-2 text-neutral-500 dark:text-neutral-400" />
@@ -470,7 +483,7 @@ export default function CollaborativeEditor({
         <div className="flex space-x-2">
           <button
             onClick={handleResetCode}
-            className="p-2 text-sm rounded hover:bg-neutral-200 dark:hover:bg-neutral-800"
+            className="p-2 text-sm rounded hover:bg-neutral-200 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors"
             title="Reset code"
             disabled={isResetting}
           >
@@ -478,7 +491,7 @@ export default function CollaborativeEditor({
           </button>
           <button
             onClick={handleCopy}
-            className="p-2 text-sm rounded hover:bg-neutral-200 dark:hover:bg-neutral-800"
+            className="p-2 text-sm rounded hover:bg-neutral-200 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors"
             title="Copy code"
           >
             {isCopied ? 'Copied!' : <FiCopy />}
@@ -486,28 +499,24 @@ export default function CollaborativeEditor({
         </div>
       </div>
 
-      <div className="relative">
-        {/* Code editor */}
-        <textarea
-          ref={textareaRef}
-          value={code}
+      <div className="relative h-[70vh]">
+        {/* Code editor with syntax highlighting */}
+        <CodeHighlight
+          code={code}
+          language={language}
+          textareaRef={textareaRef as React.RefObject<HTMLTextAreaElement>}
           onChange={handleCodeChange}
           onSelect={handleCursorPositionChange}
           onKeyUp={handleCursorPositionChange}
           onMouseUp={handleCursorPositionChange}
-          className={`w-full h-[70vh] p-4 font-mono text-sm bg-neutral-50 dark:bg-neutral-900 focus:outline-none resize-none ${language === 'python' ? 'language-python' : language === 'javascript' ? 'language-javascript' : ''}`}
-          spellCheck="false"
         />
-        
-        {/* User cursors would be rendered here in a production app */}
-        {/* This is a simplified version */}
       </div>
       
-      <div className="bg-neutral-100 dark:bg-neutral-900 p-3 text-xs text-neutral-500 dark:text-neutral-400 flex justify-between items-center">
+      <div className="bg-neutral-100 dark:bg-neutral-900 p-3 text-xs text-neutral-500 dark:text-neutral-400 flex justify-between items-center border-t border-neutral-200 dark:border-neutral-800">
         <p>Session ID: {sessionId} • Share this URL with others to code together</p>
         <button
           onClick={handleNewSession}
-          className="text-xs text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300"
+          className="text-xs text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
         >
           Create New Session
         </button>
