@@ -12,7 +12,7 @@ export default function PlaygroundPage() {
   };
   
   return (
-    <section className="py-8 md:py-12">
+    <section>
       <h1 className="text-3xl md:text-4xl font-bold mb-4">Collaborative Code Editor</h1>
       <p className="text-neutral-600 dark:text-neutral-400 text-lg mb-10">
         Code together with others in real-time, just like Google Docs but for coding.
@@ -20,7 +20,7 @@ export default function PlaygroundPage() {
       </p>
 
       <div className="grid gap-8 mb-12">
-        <div className="border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-black rounded-lg p-6">
+        <div className="border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-black/10 rounded-lg p-6">
           <div className="flex items-start gap-5">
             {/* <div className="bg-neutral-100 dark:bg-neutral-800 p-3 rounded-lg">
               <FiCode className="text-neutral-500 dark:text-neutral-400 text-xl" />
@@ -42,7 +42,7 @@ export default function PlaygroundPage() {
           </div>
         </div>
 
-        <div className="border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-black rounded-lg p-6">
+        <div className="border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-black/10 rounded-lg p-6">
           <div className="flex items-start gap-5">
             {/* <div className="bg-neutral-100 dark:bg-neutral-800 p-3 rounded-lg">
               <FiShare2 className="text-neutral-500 dark:text-neutral-400 text-xl" />
