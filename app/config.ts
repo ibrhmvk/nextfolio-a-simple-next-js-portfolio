@@ -10,5 +10,5 @@ export const socialLinks = {
   twitter: "https://x.com/seekinmonky",
   github: "https://github.com/seekinmonky",
   linkedin: "https://www.linkedin.com/in/ibrahimvk/",
-  email: "mailto:seekinmonky@gmail.com",
+  email: "mailto:ibrahimvk96@gmail.com",
 };
