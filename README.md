@@ -55,4 +55,4 @@ This project includes a real-time collaborative code editor that allows multiple
 
 4. Restart your development server if it's running.
 
-The collaborative code editor is now ready to use. You can access it at `/playground` and create or join coding sessions. Share the URL with others to code together in real-time.
+The collaborative code editor is now ready to use. You can access it at `/code` and create or join coding sessions. Share the URL with others to code together in real-time.
