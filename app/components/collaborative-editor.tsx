@@ -463,19 +463,26 @@ export default function CollaborativeEditor({
         <div className="flex items-center gap-2 text-xs sm:text-sm">
           <div className="flex items-center">
             <label htmlFor="language-select" className="mr-2 text-xs sm:text-sm whitespace-nowrap">Language:</label>
-            <select
-              id="language-select"
-              value={language}
-              onChange={handleLanguageChange}
-              className="px-2 py-1 sm:px-3 sm:py-1.5 text-xs sm:text-sm border border-neutral-300 dark:border-neutral-700 rounded-lg bg-white dark:bg-neutral-800 focus:outline-none focus:ring-1 focus:ring-blue-500"
-              disabled={isChangingLanguage}
-            >
-              {supportedLanguages.map((lang) => (
-                <option key={lang.id} value={lang.id}>
-                  {lang.name}
-                </option>
-              ))}
-            </select>
+            <div className="relative">
+              <select
+                id="language-select"
+                value={language}
+                onChange={handleLanguageChange}
+                className="appearance-none pl-3 pr-8 py-1 sm:py-2 text-xs sm:text-sm border border-neutral-600 rounded-lg bg-neutral-800 text-white focus:outline-none"
+                disabled={isChangingLanguage}
+              >
+                {supportedLanguages.map((lang) => (
+                  <option key={lang.id} value={lang.id}>
+                    {lang.name}
+                  </option>
+                ))}
+              </select>
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-white">
+                <svg className="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              </div>
+            </div>
           </div>
         </div>
         

@@ -41,7 +41,7 @@ export default function EditorSessionPage() {
           >
             <FiArrowLeft className="mr-1" /> Back to Playground
           </Link>
-          <h1 className="font-bold text-xl sm:text-2xl">Collaborative Session: <span className="text-lg sm:text-2xl font-mono">{sessionId}</span></h1>
+          <h1 className="font-bold text-xl sm:text-2xl">Collaborative Coding Session: <span className="text-lg sm:text-2xl font-mono">{sessionId}</span></h1>
         </div>
         
         {/* <div className="flex items-center">
