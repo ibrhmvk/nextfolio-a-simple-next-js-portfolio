@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { createClient } from '@supabase/supabase-js';
-import { FiCopy, FiRefreshCw, FiUsers, FiCode } from 'react-icons/fi';
+import { FiCopy, FiRefreshCw, FiUsers, FiCode, FiShare2 } from 'react-icons/fi';
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 
@@ -62,6 +62,7 @@ export default function CollaborativeEditor({
   const [code, setCode] = useState(initialCode);
   const [language, setLanguage] = useState(initialLanguage);
   const [isCopied, setIsCopied] = useState(false);
+  const [isUrlCopied, setIsUrlCopied] = useState(false);
   const [activeUsers, setActiveUsers] = useState<User[]>([]);
   const [userId, setUserId] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
@@ -413,6 +414,14 @@ export default function CollaborativeEditor({
     setTimeout(() => setIsCopied(false), 2000);
   };
   
+  // Share session by copying URL to clipboard
+  const handleShareSession = async () => {
+    const url = window.location.href;
+    await navigator.clipboard.writeText(url);
+    setIsUrlCopied(true);
+    setTimeout(() => setIsUrlCopied(false), 2000);
+  };
+  
   // Reset the current session's code
   const handleResetCode = async () => {
     const defaultCode = languageTemplates[language as keyof typeof languageTemplates] || languageTemplates.plaintext;
@@ -438,12 +447,6 @@ export default function CollaborativeEditor({
     } finally {
       setIsResetting(false);
     }
-  };
-  
-  // Create a new session
-  const handleNewSession = () => {
-    const newSessionId = Math.random().toString(36).substring(2, 10);
-    router.push(`/playground/${newSessionId}?language=javascript`);
   };
   
   if (isLoading) {
@@ -496,11 +499,11 @@ export default function CollaborativeEditor({
           </button>
           
           <button
-            onClick={handleNewSession}
+            onClick={handleShareSession}
             className="inline-flex items-center px-2 py-1 sm:px-3 sm:py-1.5 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-800/40 text-blue-700 dark:text-blue-300 rounded-md transition-colors"
           >
-            <FiCode className="mr-1" />
-            New Session
+            <FiShare2 className="mr-1" />
+            {isUrlCopied ? 'Copied!' : 'Share Session'}
           </button>
         </div>
       </div>
