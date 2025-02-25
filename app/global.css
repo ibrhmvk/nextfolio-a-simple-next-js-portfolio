@@ -136,10 +136,9 @@ input[type="email"] {
 }
 
 table {
+  @apply w-full text-sm;
   display: block;
-  max-width: fit-content;
   overflow-x: auto;
-  white-space: nowrap;
 }
 
 .prose .callout > p {
@@ -148,4 +147,29 @@ table {
 
 .title {
   text-wrap: balance;
+}
+
+@media (max-width: 640px) {
+  .prose pre {
+    @apply mx-[-1rem] px-4;
+  }
+  
+  .prose img {
+    @apply mx-auto;
+    max-width: calc(100vw - 2rem);
+  }
+  
+  .prose h2,
+  .prose h3,
+  .prose h4 {
+    @apply text-lg sm:text-xl break-words;
+  }
+  
+  .prose p, .prose ul, .prose ol {
+    @apply text-sm sm:text-base;
+  }
+  
+  .prose code {
+    @apply text-xs sm:text-sm;
+  }
 }

@@ -11,10 +11,10 @@ const navItems = {
 
 export function Navbar() {
   return (
-    <nav className="lg:mb-16 mb-8 pt-4 pb-3">
+    <nav className="lg:mb-16 mb-8 pt-6 pb-3">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between">
         <div className="flex items-center">
-          <Link href="/" className="text-2xl md:text-3xl font-semibold tracking-tight">
+          <Link href="/" className="text-3xl font-semibold tracking-tight">
             {metaData.title}
           </Link>
         </div>

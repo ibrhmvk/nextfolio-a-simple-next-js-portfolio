@@ -38,22 +38,24 @@ function Code({ children, ...props }) {
 
 function Table({ data }) {
   let headers = data.headers.map((header, index) => (
-    <th key={index}>{header}</th>
+    <th key={index} className="px-2 py-1">{header}</th>
   ));
   let rows = data.rows.map((row, index) => (
     <tr key={index}>
       {row.map((cell, cellIndex) => (
-        <td key={cellIndex}>{cell}</td>
+        <td key={cellIndex} className="px-2 py-1">{cell}</td>
       ))}
     </tr>
   ));
   return (
-    <table>
-      <thead>
-        <tr className="text-left">{headers}</tr>
-      </thead>
-      <tbody>{rows}</tbody>
-    </table>
+    <div className="overflow-x-auto w-full mb-6">
+      <table className="min-w-full">
+        <thead>
+          <tr className="text-left">{headers}</tr>
+        </thead>
+        <tbody>{rows}</tbody>
+      </table>
+    </div>
   );
 }
 
@@ -63,8 +65,8 @@ function Strikethrough(props) {
 
 function Callout(props) {
   return (
-    <div className="px-4 py-3 bg-[#F7F7F7] dark:bg-[#181818] rounded p-1 text-sm flex items-center text-neutral-900 dark:text-neutral-100 mb-8">
-      <div className="flex items-center w-4 mr-4">{props.emoji}</div>
+    <div className="px-3 sm:px-4 py-3 bg-[#F7F7F7] dark:bg-[#181818] rounded p-1 text-sm flex items-start sm:items-center text-neutral-900 dark:text-neutral-100 mb-8">
+      <div className="flex items-center w-4 mr-2 sm:mr-4 mt-1 sm:mt-0">{props.emoji}</div>
       <div className="w-full callout leading-relaxed">{props.children}</div>
     </div>
   );

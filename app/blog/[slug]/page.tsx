@@ -64,7 +64,7 @@ export default async function Blog({ params }) {
   }
 
   return (
-    <section className="sm:w-[336px] md:w-[630px]">
+    <section className="w-full max-w-full sm:w-[336px] md:w-[630px] px-2 sm:px-0">
       <script
         type="application/ld+json"
         suppressHydrationWarning
@@ -87,7 +87,7 @@ export default async function Blog({ params }) {
           }),
         }}
       />
-      <h1 className="title mb-3 font-medium text-2xl tracking-tight">
+      <h1 className="title mb-3 font-medium text-xl sm:text-2xl tracking-tight">
         {post.metadata.title}
       </h1>
       <div className="flex justify-between items-center mt-2 mb-8 text-medium">
@@ -95,7 +95,7 @@ export default async function Blog({ params }) {
           {formatDate(post.metadata.publishedAt)}
         </p>
       </div>
-      <article className="prose prose-quoteless prose-neutral dark:prose-invert">
+      <article className="prose prose-quoteless prose-neutral dark:prose-invert max-w-full overflow-x-hidden">
         <CustomMDX source={post.content} />
       </article>
     </section>
