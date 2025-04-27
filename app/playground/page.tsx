@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { FiCode, FiShare2, FiUsers, FiRefreshCw, FiSave } from 'react-icons/fi';
+import { FiCode, FiShare2, FiUsers, FiRefreshCw, FiSave, FiMic, FiMessageSquare } from 'react-icons/fi';
 
 export default function PlaygroundPage() {
   const router = useRouter();
@@ -37,6 +37,26 @@ export default function PlaygroundPage() {
               >
                 <FiCode className="mr-2" />
                 Create New Session
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Interview Simulator Feature */}
+        <div className="border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-black/10 rounded-lg p-6">
+          <div className="flex items-start gap-5">
+            <div className="flex-1">
+              <h2 className="font-semibold text-xl mb-2">Coding Interview Voice Simulator</h2>
+              <p className="text-neutral-600 dark:text-neutral-400 mb-6">
+                Practice your coding interview skills with our AI-powered voice simulator.
+                Solve problems, explain your thought process, and get feedback in real-time.
+              </p>
+              <button
+                onClick={() => router.push('/playground/interview-simulator')}
+                className="inline-flex items-center px-4 py-2 bg-indigo-600 dark:bg-indigo-700 text-white rounded-lg hover:bg-indigo-700 dark:hover:bg-indigo-600 transition"
+              >
+                <FiMic className="mr-2" />
+                Start Interview Practice
               </button>
             </div>
           </div>
