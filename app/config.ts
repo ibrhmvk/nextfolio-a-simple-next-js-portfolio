@@ -3,7 +3,7 @@ export const metaData = {
   title: "seekinmonky",
   name: "Ibrahim V K",
   ogImage: "/logo2.webp",
-  description: "A monky who wants to know",
+  description: "seekinmonky - chasing bananas and balance.",
 };
 
 export const socialLinks = {
