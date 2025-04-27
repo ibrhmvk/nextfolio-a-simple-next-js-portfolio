@@ -1,5 +1,4 @@
-import Image from "next/image";
-import { socialLinks } from "./config";
+import Footer from "./components/footer";
 
 export default function Page() {
   return (
@@ -15,6 +14,7 @@ export default function Page() {
           things are on their way to you.
         </p>
       </div>
+      <Footer/>
     </section>
   );
 }

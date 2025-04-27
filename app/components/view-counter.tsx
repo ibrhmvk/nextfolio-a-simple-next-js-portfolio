@@ -5,17 +5,25 @@ import { incrementViewCount, getViewCount } from "../lib/supabase";
 import { IoEyeOutline, IoLeaf, IoMoon, IoSunny } from "react-icons/io5";
 
 export default function ViewCounter() {
-  const [viewCount, setViewCount] = useState<number | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [viewCount, setViewCount] = useState<number | null>(() => {
+    // Try to get cached count from sessionStorage on initial render
+    const cached = sessionStorage.getItem("viewCount");
+    return cached ? parseInt(cached, 10) : null;
+  });
+  const [isLoading, setIsLoading] = useState(!viewCount);
   const [error, setError] = useState<string | null>(null);
-  const [currentIcon, setCurrentIcon] = useState<ReactNode>(null);
+  const [currentIcon, setCurrentIcon] = useState<ReactNode>(() => {
+    // Set initial icon based on time of day
+    const currentHour = new Date().getHours();
+    return currentHour >= 6 && currentHour < 18 ? 
+      <IoSunny className="text-white mr-3" /> : 
+      <IoMoon className="text-white mr-3" />;
+  });
 
   useEffect(() => {
-    // Determine which icon to show based on time of day
+    // Update icon every hour
     const updateTimeBasedIcon = () => {
       const currentHour = new Date().getHours();
-      // Morning to evening (6 AM to 6 PM) - Sun icon
-      // Night (6 PM to 6 AM) - Moon icon
       if (currentHour >= 6 && currentHour < 18) {
         setCurrentIcon(<IoSunny className="text-white mr-3" />);
       } else {
@@ -23,35 +31,28 @@ export default function ViewCounter() {
       }
     };
 
-    // Set icon initially
-    updateTimeBasedIcon();
-
-    // Update icon every hour
-    const intervalId = setInterval(updateTimeBasedIcon, 3600000); // 1 hour in milliseconds
-
+    const intervalId = setInterval(updateTimeBasedIcon, 3600000);
     return () => clearInterval(intervalId);
   }, []);
 
   useEffect(() => {
     const updateViewCount = async () => {
       try {
-        setIsLoading(true);
-        // Only increment view count if this is a new session
+        // If we haven't counted this session yet
         if (!sessionStorage.getItem("viewCounted")) {
           const newCount = await incrementViewCount();
           if (newCount !== null) {
             setViewCount(newCount);
-            // Mark this session as counted
+            sessionStorage.setItem("viewCount", newCount.toString());
             sessionStorage.setItem("viewCounted", "true");
-          } else {
-            // If increment fails, just get the current count
-            const count = await getViewCount();
-            setViewCount(count);
           }
         } else {
-          // If already counted in this session, just get the current count
+          // Just get the latest count without incrementing
           const count = await getViewCount();
-          setViewCount(count);
+          if (count !== null) {
+            setViewCount(count);
+            sessionStorage.setItem("viewCount", count.toString());
+          }
         }
       } catch (err) {
         console.error("Error updating view count:", err);
@@ -64,23 +65,19 @@ export default function ViewCounter() {
     updateViewCount();
   }, []);
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center w-full max-w-[120px]">
-        <div className="animate-pulse h-8 w-full rounded-full bg-gray-800/30 dark:bg-gray-700/30"></div>
-      </div>
-    );
-  }
-
   if (error) {
-    return null; // Don't show anything if there's an error
+    return null;
   }
 
   return (
     <div className="color-changing-pill flex items-center justify-center w-full max-w-[140px] px-3 py-1.5 rounded-full text-sm">
       {currentIcon}
       <span className="font-medium text-white">
-        {viewCount?.toLocaleString()} views
+        {isLoading && !viewCount ? (
+          <span className="opacity-60">-- views</span>
+        ) : (
+          `${viewCount?.toLocaleString()} views`
+        )}
       </span>
       <style jsx>{`
         .color-changing-pill {
