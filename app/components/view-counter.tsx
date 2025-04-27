@@ -2,67 +2,77 @@
 
 import { useEffect, useState, ReactNode } from "react";
 import { incrementViewCount, getViewCount } from "../lib/supabase";
-import { IoEyeOutline, IoLeaf, IoMoon, IoSunny } from "react-icons/io5";
+import { IoMoon, IoSunny } from "react-icons/io5";
 
 export default function ViewCounter() {
-  const [viewCount, setViewCount] = useState<number | null>(() => {
-    // Try to get cached count from sessionStorage on initial render
-    const cached = sessionStorage.getItem("viewCount");
-    return cached ? parseInt(cached, 10) : null;
-  });
-  const [isLoading, setIsLoading] = useState(!viewCount);
+  const [viewCount, setViewCount] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [currentIcon, setCurrentIcon] = useState<ReactNode>(() => {
-    // Set initial icon based on time of day
-    const currentHour = new Date().getHours();
-    return currentHour >= 6 && currentHour < 18 ? 
-      <IoSunny className="text-white mr-3" /> : 
-      <IoMoon className="text-white mr-3" />;
-  });
+  const [currentIcon, setCurrentIcon] = useState<ReactNode>(null);
 
+  // Set initial icon and update it hourly
   useEffect(() => {
-    // Update icon every hour
     const updateTimeBasedIcon = () => {
       const currentHour = new Date().getHours();
-      if (currentHour >= 6 && currentHour < 18) {
-        setCurrentIcon(<IoSunny className="text-white mr-3" />);
-      } else {
-        setCurrentIcon(<IoMoon className="text-white mr-3" />);
-      }
+      setCurrentIcon(
+        currentHour >= 6 && currentHour < 18 
+          ? <IoSunny className="text-white mr-3" />
+          : <IoMoon className="text-white mr-3" />
+      );
     };
 
+    updateTimeBasedIcon();
     const intervalId = setInterval(updateTimeBasedIcon, 3600000);
     return () => clearInterval(intervalId);
   }, []);
 
+  // Handle view count
   useEffect(() => {
-    const updateViewCount = async () => {
+    let isMounted = true;
+
+    const fetchViewCount = async () => {
       try {
-        // If we haven't counted this session yet
-        if (!sessionStorage.getItem("viewCounted")) {
-          const newCount = await incrementViewCount();
-          if (newCount !== null) {
-            setViewCount(newCount);
-            sessionStorage.setItem("viewCount", newCount.toString());
-            sessionStorage.setItem("viewCounted", "true");
+        // Try to get cached count from sessionStorage
+        if (typeof window !== 'undefined') {
+          const cached = window.sessionStorage.getItem("viewCount");
+          const hasViewedThisSession = window.sessionStorage.getItem("viewCounted");
+          
+          if (cached && isMounted) {
+            setViewCount(parseInt(cached, 10));
+            setIsLoading(false);
           }
-        } else {
-          // Just get the latest count without incrementing
-          const count = await getViewCount();
-          if (count !== null) {
-            setViewCount(count);
-            sessionStorage.setItem("viewCount", count.toString());
+
+          if (!hasViewedThisSession) {
+            const newCount = await incrementViewCount();
+            if (newCount !== null && isMounted) {
+              setViewCount(newCount);
+              window.sessionStorage.setItem("viewCount", newCount.toString());
+              window.sessionStorage.setItem("viewCounted", "true");
+            }
+          } else {
+            const count = await getViewCount();
+            if (count !== null && isMounted) {
+              setViewCount(count);
+              window.sessionStorage.setItem("viewCount", count.toString());
+            }
           }
         }
       } catch (err) {
         console.error("Error updating view count:", err);
-        setError("Failed to update view count");
+        if (isMounted) {
+          setError("Failed to update view count");
+        }
       } finally {
-        setIsLoading(false);
+        if (isMounted) {
+          setIsLoading(false);
+        }
       }
     };
 
-    updateViewCount();
+    fetchViewCount();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   if (error) {
