@@ -5,16 +5,15 @@ export default function Page() {
     <section className="text-black font-mono font-medium text-lg">
       <div className="space-y-4">
         <p>
-          Hi 👋, I'm Ibrahim V K, I want you to know that you are stronger than you
-          realize and more loved than you know. Whatever journey you are on, may
-          it be filled with light, hope, and endless possibilities. May every
-          pain you carry find healing, and may every dream you cherish find its
-          way to reality. This world is better with you in it, and I truly wish
-          you joy, peace, and a heart full of courage. Keep believing, beautiful
-          things are on their way to you.
+          Hey 👋, I'm Ibrahim,
+          I don’t know what your day’s been like, but if it’s heavy, pause, breathe. You don’t have to have it all figured out.
+          Some things take time, and that’s okay. You’re allowed to rest. You’re allowed to not be okay.
+          But please don’t forget, even quiet progress is still progress.
+          You matter, even on the days you feel invisible.
+          I’m rooting for you, genuinely.
         </p>
       </div>
-      <Footer/>
+      <Footer />
     </section>
   );
 }
