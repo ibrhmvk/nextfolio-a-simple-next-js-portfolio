@@ -7,7 +7,6 @@
     "start": "next start"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.49.1",
     "@types/d3": "^7.4.3",
     "@types/node": "22.10.7",
     "@types/react": "19.0.7",

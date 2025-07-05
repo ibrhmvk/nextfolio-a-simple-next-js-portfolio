@@ -4,7 +4,7 @@ import React from "react";
 import { FaXTwitter, FaGithub, FaLinkedinIn } from "react-icons/fa6";
 import { TbMailFilled } from "react-icons/tb";
 import { metaData, socialLinks } from "app/config";
-import ViewCounter from "./view-counter";
+import BitcoinPrice from "./view-counter";
 
 const YEAR = new Date().getFullYear();
 
@@ -47,7 +47,7 @@ export default function Footer() {
             >
               {metaData.title}
             </a> */}
-          <ViewCounter />
+                      <BitcoinPrice />
         </div>
         <SocialLinks />
       </div>
