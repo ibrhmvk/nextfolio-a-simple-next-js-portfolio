@@ -1,66 +1,64 @@
 "use client";
 
-import { useEffect, useState, ReactNode } from "react";
-import { incrementViewCount, getViewCount } from "../lib/supabase";
-import { IoMoon, IoSunny } from "react-icons/io5";
+import { useEffect, useState } from "react";
+import { FaBitcoin } from "react-icons/fa";
 
-export default function ViewCounter() {
-  const [viewCount, setViewCount] = useState<number | null>(null);
+// Function to get Bitcoin price - moved from supabase.ts
+async function getBitcoinPrice() {
+  try {
+    const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+    
+    if (!response.ok) {
+      throw new Error('Failed to fetch Bitcoin price');
+    }
+    
+    const data = await response.json();
+    return data.bitcoin.usd;
+  } catch (error) {
+    console.error('Error fetching Bitcoin price:', error);
+    return null;
+  }
+}
+
+export default function BitcoinPrice() {
+  const [bitcoinPrice, setBitcoinPrice] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [currentIcon, setCurrentIcon] = useState<ReactNode>(null);
 
-  // Set initial icon and update it hourly
-  useEffect(() => {
-    const updateTimeBasedIcon = () => {
-      const currentHour = new Date().getHours();
-      setCurrentIcon(
-        currentHour >= 6 && currentHour < 18 
-          ? <IoSunny className="text-white mr-3" />
-          : <IoMoon className="text-white mr-3" />
-      );
-    };
-
-    updateTimeBasedIcon();
-    const intervalId = setInterval(updateTimeBasedIcon, 3600000);
-    return () => clearInterval(intervalId);
-  }, []);
-
-  // Handle view count
+  // Handle Bitcoin price
   useEffect(() => {
     let isMounted = true;
 
-    const fetchViewCount = async () => {
+    const fetchBitcoinPrice = async () => {
       try {
-        // Try to get cached count from sessionStorage
+        // Try to get cached price from sessionStorage
         if (typeof window !== 'undefined') {
-          const cached = window.sessionStorage.getItem("viewCount");
-          const hasViewedThisSession = window.sessionStorage.getItem("viewCounted");
+          const cached = window.sessionStorage.getItem("bitcoinPrice");
+          const cacheTime = window.sessionStorage.getItem("bitcoinPriceTime");
           
-          if (cached && isMounted) {
-            setViewCount(parseInt(cached, 10));
-            setIsLoading(false);
+          // Check if cache is less than 5 minutes old
+          if (cached && cacheTime && isMounted) {
+            const now = Date.now();
+            const cacheAge = now - parseInt(cacheTime, 10);
+            if (cacheAge < 5 * 60 * 1000) { // 5 minutes
+              setBitcoinPrice(parseFloat(cached));
+              setIsLoading(false);
+              return;
+            }
           }
 
-          if (!hasViewedThisSession) {
-            const newCount = await incrementViewCount();
-            if (newCount !== null && isMounted) {
-              setViewCount(newCount);
-              window.sessionStorage.setItem("viewCount", newCount.toString());
-              window.sessionStorage.setItem("viewCounted", "true");
-            }
-          } else {
-            const count = await getViewCount();
-            if (count !== null && isMounted) {
-              setViewCount(count);
-              window.sessionStorage.setItem("viewCount", count.toString());
-            }
+          // Fetch fresh price
+          const price = await getBitcoinPrice();
+          if (price !== null && isMounted) {
+            setBitcoinPrice(price);
+            window.sessionStorage.setItem("bitcoinPrice", price.toString());
+            window.sessionStorage.setItem("bitcoinPriceTime", Date.now().toString());
           }
         }
       } catch (err) {
-        console.error("Error updating view count:", err);
+        console.error("Error fetching Bitcoin price:", err);
         if (isMounted) {
-          setError("Failed to update view count");
+          setError("Failed to fetch Bitcoin price");
         }
       } finally {
         if (isMounted) {
@@ -69,9 +67,14 @@ export default function ViewCounter() {
       }
     };
 
-    fetchViewCount();
+    fetchBitcoinPrice();
+    
+    // Refresh price every 5 minutes
+    const intervalId = setInterval(fetchBitcoinPrice, 5 * 60 * 1000);
+    
     return () => {
       isMounted = false;
+      clearInterval(intervalId);
     };
   }, []);
 
@@ -81,12 +84,12 @@ export default function ViewCounter() {
 
   return (
     <div className="color-changing-pill flex items-center justify-center w-full max-w-[140px] px-3 py-1.5 rounded-full text-sm">
-      {currentIcon}
+      <FaBitcoin className="text-white mr-2 text-lg" />
       <span className="font-medium text-white">
-        {isLoading && !viewCount ? (
-          <span className="opacity-60">-- views</span>
+        {isLoading && !bitcoinPrice ? (
+          <span className="opacity-60">$--,---</span>
         ) : (
-          `${viewCount?.toLocaleString()} views`
+          `$${bitcoinPrice?.toLocaleString()}`
         )}
       </span>
       <style jsx>{`
